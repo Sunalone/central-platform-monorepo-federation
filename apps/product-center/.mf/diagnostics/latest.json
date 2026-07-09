@@ -1,0 +1,10 @@
+{
+  "latestErrorEvent": {
+    "code": "TYPE-001",
+    "message": "Failed to generate type declaration. Execute the below cmd to reproduce and fix the error. #TYPE-001\nargs: {\"cmd\":\"npx tsc --project D:\\\\sun\\\\pnpm-monorepo\\\\vite-federation\\\\apps\\\\product-center\\\\node_modules\\\\.federation\\\\tsconfig.9a1cd8ef03158b9ecac6c74a6c351bea.json\"}\nView the docs to see how to solve: https://module-federation.io/guide/troubleshooting/type#type-001",
+    "args": {
+      "cmd": "npx tsc --project D:\\sun\\pnpm-monorepo\\vite-federation\\apps\\product-center\\node_modules\\.federation\\tsconfig.9a1cd8ef03158b9ecac6c74a6c351bea.json"
+    },
+    "timestamp": 1783586030195
+  }
+}
