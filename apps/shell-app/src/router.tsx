@@ -1,20 +1,22 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import AdminLayout from './components/Layout';
-import { lazy,Suspense } from 'react';
+import { lazy, Suspense } from 'react';
+import ErrorPage from './components/ErrorPage';
 
-
+// @ts-expect-error 远程模块引入
 const ProductCenter = lazy(() => import('product-center/index'));
 
 const router = createBrowserRouter([
   {
-      // 默认加载product
+    // 默认加载product
     path: '/product',
     element: <AdminLayout />,
+    errorElement: <ErrorPage />, // 全局路由错误捕获
     children: [
       {
         index: true,
         element: <Suspense fallback={<div>加载中...</div>}>
-            <ProductCenter/>
+          <ProductCenter />
         </Suspense>,
       },
       {
