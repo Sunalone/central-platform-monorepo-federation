@@ -11,3 +11,10 @@ declare module 'protocol-center/index' {
   const ProtocolCenter: ComponentType;
   export default ProtocolCenter;
 }
+
+declare module 'payment-center/index' {
+  import type { ComponentType } from 'react';
+
+  const PaymentCenter: ComponentType;
+  export default PaymentCenter;
+}

@@ -4,6 +4,7 @@ import {
   LogoutOutlined,
   SettingOutlined,
   UserOutlined,
+  WalletOutlined,
 } from '@ant-design/icons';
 import { Avatar, Dropdown, Menu, Space, Tag } from 'antd';
 import type { MenuProps } from 'antd';
@@ -12,6 +13,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 const topMenuItems: MenuProps['items'] = [
   { key: '/product', icon: <AppstoreOutlined />, label: '产品中心' },
   { key: '/protocol', icon: <FileProtectOutlined />, label: '协议中心' },
+  { key: '/payment', icon: <WalletOutlined />, label: '支付中心' },
 ];
 
 const userMenuItems: MenuProps['items'] = [
@@ -23,7 +25,11 @@ const userMenuItems: MenuProps['items'] = [
 const Header = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const currentKey = pathname.startsWith('/protocol') ? '/protocol' : '/product';
+  const currentKey = pathname.startsWith('/protocol')
+    ? '/protocol'
+    : pathname.startsWith('/payment')
+      ? '/payment'
+      : '/product';
 
   return (
     <header className="shell-header">

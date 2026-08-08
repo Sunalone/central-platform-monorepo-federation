@@ -172,18 +172,21 @@ input {
 
 /* Remote apps own their inner layout, but the shell reserves its global header height. */
 .shell-content .product-shell,
-.shell-content .protocol-shell {
+.shell-content .protocol-shell,
+.shell-content .payment-shell {
   min-height: calc(100vh - 60px);
 }
 
 .shell-layout .shell-content .product-shell .product-sider.ant-layout-sider,
-.shell-layout .shell-content .protocol-shell .protocol-sider.ant-layout-sider {
+.shell-layout .shell-content .protocol-shell .protocol-sider.ant-layout-sider,
+.shell-layout .shell-content .payment-shell .payment-sider.ant-layout-sider {
   top: 60px;
   height: calc(100vh - 60px);
 }
 
 .shell-layout .shell-content .product-shell .product-header,
-.shell-layout .shell-content .protocol-shell .protocol-header {
+.shell-layout .shell-content .protocol-shell .protocol-header,
+.shell-layout .shell-content .payment-shell .payment-header {
   top: 60px;
 }
 

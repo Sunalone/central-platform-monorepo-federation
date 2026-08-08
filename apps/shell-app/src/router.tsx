@@ -10,6 +10,7 @@ import ErrorPage from './components/ErrorPage';
 
 const ProductCenter = lazy(() => import('product-center/index'));
 const ProtocolCenter = lazy(() => import('protocol-center/index'));
+const PaymentCenter = lazy(() => import('payment-center/index'));
 
 const RemoteLoading = () => (
   <div className="remote-loading" role="status">
@@ -43,6 +44,14 @@ const router = createBrowserRouter([
         element: (
           <RemotePage>
             <ProtocolCenter />
+          </RemotePage>
+        ),
+      },
+      {
+        path: 'payment/*',
+        element: (
+          <RemotePage>
+            <PaymentCenter />
           </RemotePage>
         ),
       },
