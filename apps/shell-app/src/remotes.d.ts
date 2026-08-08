@@ -18,3 +18,10 @@ declare module 'payment-center/index' {
   const PaymentCenter: ComponentType;
   export default PaymentCenter;
 }
+
+declare module 'user-center/index' {
+  import type { ComponentType } from 'react';
+
+  const UserCenter: ComponentType;
+  export default UserCenter;
+}

@@ -31,6 +31,13 @@ export default defineConfig({
           entryGlobalName: 'payment-center',
           shareScope: 'default',
         },
+        'user-center': {
+          type: 'module',
+          name: 'user-center',
+          entry: 'http://localhost:4004/remoteUserCenter.js',
+          entryGlobalName: 'user-center',
+          shareScope: 'default',
+        },
       },
       shared: ['react', 'react-dom', 'react-router-dom'],
       dts: false,

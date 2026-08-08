@@ -3,6 +3,7 @@ import {
   FileProtectOutlined,
   LogoutOutlined,
   SettingOutlined,
+  TeamOutlined,
   UserOutlined,
   WalletOutlined,
 } from '@ant-design/icons';
@@ -14,6 +15,7 @@ const topMenuItems: MenuProps['items'] = [
   { key: '/product', icon: <AppstoreOutlined />, label: '产品中心' },
   { key: '/protocol', icon: <FileProtectOutlined />, label: '协议中心' },
   { key: '/payment', icon: <WalletOutlined />, label: '支付中心' },
+  { key: '/user', icon: <TeamOutlined />, label: '用户中心' },
 ];
 
 const userMenuItems: MenuProps['items'] = [
@@ -29,7 +31,9 @@ const Header = () => {
     ? '/protocol'
     : pathname.startsWith('/payment')
       ? '/payment'
-      : '/product';
+      : pathname.startsWith('/user')
+        ? '/user'
+        : '/product';
 
   return (
     <header className="shell-header">
