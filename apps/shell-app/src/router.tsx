@@ -1,35 +1,50 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import AdminLayout from './components/Layout';
 import { lazy, Suspense } from 'react';
+import type { ReactNode } from 'react';
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from 'react-router-dom';
+import AdminLayout from './components/Layout';
 import ErrorPage from './components/ErrorPage';
 
-// @ts-expect-error 远程模块引入
 const ProductCenter = lazy(() => import('product-center/index'));
+const ProtocolCenter = lazy(() => import('protocol-center/index'));
+
+const RemoteLoading = () => (
+  <div className="remote-loading" role="status">
+    <span className="remote-loading-mark" />
+    <strong>正在连接业务中心</strong>
+    <small>首次加载远程模块可能需要几秒</small>
+  </div>
+);
+
+const RemotePage = ({ children }: { children: ReactNode }) => (
+  <Suspense fallback={<RemoteLoading />}>{children}</Suspense>
+);
 
 const router = createBrowserRouter([
   {
-    // 默认加载product
-    path: '/product',
+    path: '/',
     element: <AdminLayout />,
-    errorElement: <ErrorPage />, // 全局路由错误捕获
+    errorElement: <ErrorPage />,
     children: [
+      { index: true, element: <Navigate to="/product" replace /> },
       {
-        index: true,
-        element: <Suspense fallback={<div>加载中...</div>}>
-          <ProductCenter />
-        </Suspense>,
+        path: 'product',
+        element: (
+          <RemotePage>
+            <ProductCenter />
+          </RemotePage>
+        ),
       },
       {
-        path: 'product/list',
-        element: <div>商品列表页面</div>,
-      },
-      {
-        path: 'product/category',
-        element: <div>商品分类页面</div>,
-      },
-      {
-        path: 'order',
-        element: <div>订单管理页面</div>,
+        path: 'protocol',
+        element: (
+          <RemotePage>
+            <ProtocolCenter />
+          </RemotePage>
+        ),
       },
     ],
   },

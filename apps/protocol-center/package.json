@@ -1,0 +1,16 @@
+{
+  "name": "@central-platform/protocol-center",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 4002",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "echarts": "^6.1.0",
+    "pdfjs-dist": "^6.2.108"
+  }
+}

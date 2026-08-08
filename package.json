@@ -3,7 +3,13 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "lint": "eslint ."
+    "dev": "pnpm --parallel --filter \"./apps/*\" dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck",
+    "format": "prettier --write .",
+    "create-cli": "node packages/cli/dist/index.js"
   },
   "dependencies": {
     "@ant-design/icons": "6.3.2",

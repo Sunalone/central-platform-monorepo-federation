@@ -15,10 +15,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": ".",
     "paths": {
-      "@central-platform/ui": ["packages/ui/src/index.ts"],
-      "@central-platform/tools": ["packages/tools/src/index.ts"]
+      "@central-platform/ui": ["./packages/ui/src/index.ts"],
+      "@central-platform/tools": ["./packages/tools/src/index.ts"]
     }
   }
 }

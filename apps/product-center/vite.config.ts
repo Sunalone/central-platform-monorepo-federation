@@ -14,7 +14,8 @@ export default defineConfig({
         './index': './src/App.tsx',
         './Button': './src/components/Button/index.tsx'  
       },
-      shared: ['react', 'react-dom'] 
+      shared: ['react', 'react-dom'],
+      bundleAllCSS: true,
     })
   ],
 })

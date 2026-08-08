@@ -1,0 +1,17 @@
+{
+  "name": "__PROJECT_NAME__",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@central-platform/ui": "workspace:*",
+    "antd": "^5.23.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "@central-platform/cli",
+  "version": "0.1.0",
+  "description": "Scaffold central platform applications from local templates.",
+  "type": "commonjs",
+  "bin": {
+    "central-cli": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "templates"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "start": "node ./dist/index.js",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit --pretty false"
+  },
+  "dependencies": {
+    "chalk": "5.4.1",
+    "commander": "13.0.0",
+    "fs-extra": "11.3.0",
+    "inquirer": "12.3.0",
+    "ora": "8.1.1"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "11.0.4",
+    "tsup": "8.3.5",
+    "tsx": "4.19.2"
+  }
+}

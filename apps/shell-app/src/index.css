@@ -1,111 +1,248 @@
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
+  font-family: 'HarmonyOS Sans SC', 'MiSans', 'Microsoft YaHei', sans-serif;
+  color: #26374a;
+  background: #f3f5f4;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
-#root {
-  width: 100vw;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
+* {
   box-sizing: border-box;
 }
 
+html,
+body,
+#root {
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+}
+
 body {
-  margin: 0;
+  min-height: 100vh;
+  background: #f3f5f4;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+button,
+input {
+  font: inherit;
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
+.shell-layout {
+  min-height: 100vh;
+  background: #f3f5f4;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+.shell-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  border-bottom: 1px solid #e4e8e6;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 4px 18px rgba(26, 45, 37, 0.045);
+  backdrop-filter: blur(14px);
 }
 
-code {
+.shell-header-left {
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+
+.shell-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  border: 0;
+  color: #173c2e;
+  background: transparent;
+  cursor: pointer;
+}
+
+.shell-brand-mark {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px 10px 10px 3px;
+  color: #fff;
+  background: linear-gradient(145deg, #173c2e, #2f7085);
+  font-family: Georgia, serif;
+  font-size: 19px;
+  box-shadow: 0 7px 15px rgba(23, 60, 46, 0.2);
+}
+
+.shell-brand > span:last-child {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.shell-brand strong {
+  font-family: Georgia, serif;
   font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+}
+
+.shell-brand small {
+  margin-top: 3px;
+  color: #87928d;
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+
+.shell-nav.ant-menu-horizontal {
+  height: 59px;
+  min-width: 260px;
+  border-bottom: 0;
+  background: transparent;
+  line-height: 59px;
+}
+
+.shell-nav.ant-menu-horizontal > .ant-menu-item {
+  margin-inline: 4px;
+  padding-inline: 17px;
+  color: #68766f;
+  font-size: 13px;
+}
+
+.shell-nav.ant-menu-horizontal > .ant-menu-item-selected {
+  color: #1f5c45;
+  font-weight: 600;
+}
+
+.shell-nav.ant-menu-horizontal > .ant-menu-item-selected::after {
+  border-bottom-width: 3px;
+  border-bottom-color: #e4a853;
+}
+
+.shell-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.shell-environment.ant-tag {
+  margin: 0;
+  padding: 2px 8px;
+  border: 0;
+  border-radius: 999px;
+  color: #8e611f;
+  background: #f8ecd8;
+  font-size: 10px;
+}
+
+.shell-user-trigger {
+  cursor: pointer;
+}
+
+.shell-user-trigger .ant-avatar {
+  color: #fff;
+  background: #2f7085;
+}
+
+.shell-user-trigger > span:last-child {
+  display: flex;
+  flex-direction: column;
+  color: #34463f;
+  font-size: 11px;
+  line-height: 1.25;
+}
+
+.shell-user-trigger small {
+  color: #909a95;
+  font-size: 9px;
+}
+
+.shell-content {
+  min-width: 0;
+  min-height: calc(100vh - 60px);
+  background: #f3f5f4;
+}
+
+/* Remote apps own their inner layout, but the shell reserves its global header height. */
+.shell-content .product-shell,
+.shell-content .protocol-shell {
+  min-height: calc(100vh - 60px);
+}
+
+.shell-layout .shell-content .product-shell .product-sider.ant-layout-sider,
+.shell-layout .shell-content .protocol-shell .protocol-sider.ant-layout-sider {
+  top: 60px;
+  height: calc(100vh - 60px);
+}
+
+.shell-layout .shell-content .product-shell .product-header,
+.shell-layout .shell-content .protocol-shell .protocol-header {
+  top: 60px;
+}
+
+.remote-loading {
+  min-height: calc(100vh - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 7px;
+  color: #34463f;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(47, 112, 133, 0.08), transparent 24%),
+    #f3f5f4;
+}
+
+.remote-loading-mark {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 8px;
+  border: 3px solid #d8e1dd;
+  border-top-color: #2f7085;
+  border-radius: 50%;
+  animation: remote-spin 0.8s linear infinite;
+}
+
+.remote-loading strong {
+  font-size: 14px;
+}
+
+.remote-loading small {
+  color: #8a9690;
+  font-size: 11px;
+}
+
+@keyframes remote-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 720px) {
+  .shell-header {
+    padding: 0 12px;
+  }
+
+  .shell-header-left {
+    gap: 8px;
+  }
+
+  .shell-brand > span:last-child,
+  .shell-user,
+  .shell-nav .ant-menu-item-icon {
+    display: none;
+  }
+
+  .shell-nav.ant-menu-horizontal {
+    min-width: 220px;
+  }
+
+  .shell-nav.ant-menu-horizontal > .ant-menu-item {
+    padding-inline: 12px;
+  }
 }

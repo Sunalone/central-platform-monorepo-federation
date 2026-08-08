@@ -1,43 +1,63 @@
 import { useState } from 'react';
 import { Layout } from 'antd';
-import { Outlet } from 'react-router-dom';
+import Agreements from '../../pages/Agreements';
+import Dashboard from '../../pages/Dashboard';
+import ManagementPage from '../../pages/Management';
+import type { PageKey } from '../../types/navigation';
 import Header from './Header';
 import SiderMenu from './SiderMenu';
 
-// 解构Antd布局组件
 const { Sider, Content } = Layout;
 
 const AdminLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const toggleCollapse = () => setCollapsed(!collapsed);
+  const [pageKey, setPageKey] = useState<PageKey>('dashboard');
 
   return (
-    <Layout style={{ minHeight: '100vh', background: '#f7f8fa' }}>
-      {/* 下层：侧边菜单 + 内容区域 */}
-      <Layout style={{ background: '#fff' }}>
-        {/* 左侧白色侧边栏 */}
-        <Sider
-          trigger={null}
-          collapsible
-          collapsed={collapsed}
-          width={220}
-          style={{ background: '#fff' }}
-        >
-          <SiderMenu />
-        </Sider>
+    <Layout className="product-shell">
+      <Sider
+        className="product-sider"
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        collapsedWidth={76}
+        width={248}
+        breakpoint="lg"
+        onBreakpoint={setCollapsed}
+      >
+        <div className="brand-lockup">
+          <span className="brand-mark">P</span>
+          {!collapsed && (
+            <span className="brand-copy">
+              <strong>Product Hub</strong>
+              <small>产品运营中心</small>
+            </span>
+          )}
+        </div>
+        <div className="menu-caption">{collapsed ? '•••' : '工作台'}</div>
+        <SiderMenu selectedKey={pageKey} onSelect={setPageKey} />
+        {!collapsed && (
+          <div className="sider-footnote">
+            <span className="status-dot" />
+            服务运行正常
+          </div>
+        )}
+      </Sider>
 
-        {/* 右侧主体内容区 */}
-        <Content
-          style={{
-            margin: 24,
-            padding: 0,
-            background: '#fff',
-            borderRadius: 12,
-            minHeight: 'calc(100vh - 128px)',
-          }}
-        >
-          {/* 页面子内容（统计卡片、图表、表格全部在这里渲染） */}
-          <Outlet />
+      <Layout className="product-main-layout">
+        <Header
+          collapsed={collapsed}
+          pageKey={pageKey}
+          onToggle={() => setCollapsed((value) => !value)}
+        />
+        <Content className="product-content">
+          <div className="page-stage" key={pageKey}>
+            {pageKey === 'dashboard' && <Dashboard />}
+            {pageKey === 'agreements' && <Agreements />}
+            {pageKey !== 'dashboard' && pageKey !== 'agreements' && (
+              <ManagementPage pageKey={pageKey} />
+            )}
+          </div>
         </Content>
       </Layout>
     </Layout>

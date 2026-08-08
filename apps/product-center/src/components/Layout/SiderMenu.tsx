@@ -1,47 +1,58 @@
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Menu } from 'antd';
 import {
+  AppstoreOutlined,
   DashboardOutlined,
-  ShoppingOutlined,
-  AppstoreAddOutlined,
   FileTextOutlined,
-  MoneyCollectOutlined,
+  FolderOpenOutlined,
+  FundProjectionScreenOutlined,
+  ReadOutlined,
   SettingOutlined,
+  ShoppingCartOutlined,
+  TransactionOutlined,
 } from '@ant-design/icons';
+import { Menu } from 'antd';
 import type { MenuProps } from 'antd';
+import type { PageKey } from '../../types/navigation';
 
-const SiderMenu = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const currentPath = location.pathname;
+interface SiderMenuProps {
+  selectedKey: PageKey;
+  onSelect: (key: PageKey) => void;
+}
 
-  const menuItems: MenuProps['items'] = [
-    { key: '/dashboard', icon: <DashboardOutlined />, label: '仪表盘' },
-    { key: '/product', icon: <ShoppingOutlined />, label: '商品列表' },
-    { key: '/order', icon: <FileTextOutlined />, label: '订单管理' },
-    {
-      key: '/finance',
-      icon: <MoneyCollectOutlined />,
-      label: '财务管理',
-      children: [
-        { key: '/finance/bill', label: '账单明细' },
-        { key: '/finance/stat', label: '财务统计' },
-      ],
-    },
-    { key: '/system', icon: <SettingOutlined />, label: '系统设置' },
-  ];
+const menuItems: MenuProps['items'] = [
+  { key: 'dashboard', icon: <DashboardOutlined />, label: '仪表盘' },
+  {
+    key: 'product-group',
+    icon: <AppstoreOutlined />,
+    label: '商品管理',
+    children: [
+      { key: 'products', icon: <ShoppingCartOutlined />, label: '商品列表' },
+      { key: 'categories', icon: <FolderOpenOutlined />, label: '商品分类' },
+    ],
+  },
+  { key: 'agreements', icon: <ReadOutlined />, label: '产品协议' },
+  { key: 'orders', icon: <FileTextOutlined />, label: '订单管理' },
+  {
+    key: 'finance-group',
+    icon: <TransactionOutlined />,
+    label: '财务管理',
+    children: [
+      { key: 'bills', icon: <FundProjectionScreenOutlined />, label: '账单明细' },
+      { key: 'finance', icon: <TransactionOutlined />, label: '财务统计' },
+    ],
+  },
+  { key: 'settings', icon: <SettingOutlined />, label: '系统设置' },
+];
 
-  const handleMenuClick: MenuProps['onClick'] = ({ key }) => navigate(key);
-
-  return (
-    <Menu
-      mode="inline"
-      selectedKeys={[currentPath]}
-      items={menuItems}
-      onClick={handleMenuClick}
-      style={{ height: '100%', borderRight: '1px solid #f0f0f0' }}
-    />
-  );
-};
+const SiderMenu = ({ selectedKey, onSelect }: SiderMenuProps) => (
+  <Menu
+    className="product-menu"
+    mode="inline"
+    theme="dark"
+    selectedKeys={[selectedKey]}
+    defaultOpenKeys={['product-group', 'finance-group']}
+    items={menuItems}
+    onClick={({ key }) => onSelect(key as PageKey)}
+  />
+);
 
 export default SiderMenu;
