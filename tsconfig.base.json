@@ -17,8 +17,8 @@
     "jsx": "react-jsx",
     "paths": {
       "@central-platform/charts": ["./packages/charts/src/index.ts"],
-      "@central-platform/ui": ["./packages/ui/src/index.ts"],
-      "@central-platform/tools": ["./packages/tools/src/index.ts"]
+      "@central-platform/tools": ["./packages/tools/src/index.ts"],
+      "@central-platform/ui": ["./packages/ui/src/index.ts"]
     }
   }
 }

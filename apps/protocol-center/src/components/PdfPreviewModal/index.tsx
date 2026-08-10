@@ -1,17 +1,13 @@
 import { FilePdfOutlined } from '@ant-design/icons';
 import { Alert, Spin } from 'antd';
+import {
+  destroyPdfDocument,
+  loadPdfDocument,
+  renderPdfPage,
+  type PDFDocumentProxy,
+} from '@central-platform/tools';
 import { Modal } from '@central-platform/ui';
 import { useEffect, useRef, useState } from 'react';
-import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist';
-import type { PDFDocumentProxy } from 'pdfjs-dist';
-import pdfWorkerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
-
-// Resolve the worker against the remote module origin so Shell does not request
-// the worker from its own host when this app is loaded through Module Federation.
-const protocolCenterOrigin = new URL(import.meta.url).origin;
-GlobalWorkerOptions.workerSrc = pdfWorkerUrl.startsWith('http')
-  ? pdfWorkerUrl
-  : `${protocolCenterOrigin}${pdfWorkerUrl.startsWith('/') ? pdfWorkerUrl : `/${pdfWorkerUrl}`}`;
 
 interface PdfPageProps {
   document: PDFDocumentProxy;
@@ -22,38 +18,16 @@ const PdfPage = ({ document, pageNumber }: PdfPageProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    let cancelled = false;
-    let renderTask: ReturnType<Awaited<ReturnType<typeof document.getPage>>['render']> | undefined;
+    const canvas = canvasRef.current;
+    if (!canvas) return undefined;
 
-    const renderPage = async () => {
-      const page = await document.getPage(pageNumber);
-      if (cancelled || !canvasRef.current) return;
+    const controller = new AbortController();
+    void renderPdfPage(document, canvas, pageNumber, {
+      scale: 1.35,
+      signal: controller.signal,
+    }).catch(() => undefined);
 
-      const viewport = page.getViewport({ scale: 1.35 });
-      const outputScale = window.devicePixelRatio || 1;
-      const canvas = canvasRef.current;
-      const context = canvas.getContext('2d');
-      if (!context) return;
-
-      canvas.width = Math.floor(viewport.width * outputScale);
-      canvas.height = Math.floor(viewport.height * outputScale);
-      canvas.style.width = `${Math.floor(viewport.width)}px`;
-      canvas.style.height = `${Math.floor(viewport.height)}px`;
-
-      renderTask = page.render({
-        canvas,
-        canvasContext: context,
-        viewport,
-        transform: outputScale === 1 ? undefined : [outputScale, 0, 0, outputScale, 0, 0],
-      });
-      await renderTask.promise;
-    };
-
-    void renderPage();
-    return () => {
-      cancelled = true;
-      renderTask?.cancel();
-    };
+    return () => controller.abort();
   }, [document, pageNumber]);
 
   return (
@@ -79,7 +53,7 @@ const PdfPreviewModal = ({ open, title, fileUrl, onClose }: PdfPreviewModalProps
     if (!open || !fileUrl) return undefined;
 
     let active = true;
-    const loadingTask = getDocument({ url: fileUrl });
+    const loadingTask = loadPdfDocument(fileUrl, { moduleUrl: import.meta.url });
 
     void loadingTask.promise
       .then((loadedDocument) => {
@@ -91,7 +65,7 @@ const PdfPreviewModal = ({ open, title, fileUrl, onClose }: PdfPreviewModalProps
 
     return () => {
       active = false;
-      void loadingTask.destroy();
+      void destroyPdfDocument(loadingTask);
     };
   }, [fileUrl, open]);
 

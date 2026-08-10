@@ -108,12 +108,12 @@ importers:
       '@central-platform/charts':
         specifier: workspace:*
         version: link:../../packages/charts
+      '@central-platform/tools':
+        specifier: workspace:*
+        version: link:../../packages/tools
       '@central-platform/ui':
         specifier: workspace:*
         version: link:../../packages/ui
-      pdfjs-dist:
-        specifier: ^6.2.108
-        version: 6.2.108
 
   apps/shell-app: {}
 
@@ -140,6 +140,18 @@ importers:
       react-router-dom:
         specifier: ^7.18.1
         version: 7.18.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+
+  packages/charts:
+    devDependencies:
+      echarts:
+        specifier: 6.1.0
+        version: 6.1.0
+      tsup:
+        specifier: 8.3.5
+        version: 8.3.5(postcss@8.5.16)(tsx@4.19.2)(typescript@6.0.2)
+      typescript:
+        specifier: 6.0.2
+        version: 6.0.2
 
   packages/cli:
     dependencies:
@@ -169,11 +181,11 @@ importers:
         specifier: 4.19.2
         version: 4.19.2
 
-  packages/charts:
+  packages/tools:
     devDependencies:
-      echarts:
-        specifier: 6.1.0
-        version: 6.1.0
+      pdfjs-dist:
+        specifier: 6.2.108
+        version: 6.2.108
       tsup:
         specifier: 8.3.5
         version: 8.3.5(postcss@8.5.16)(tsx@4.19.2)(typescript@6.0.2)
