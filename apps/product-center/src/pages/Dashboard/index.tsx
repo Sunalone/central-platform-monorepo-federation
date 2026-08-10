@@ -5,16 +5,17 @@ import {
   ShoppingOutlined,
 } from '@ant-design/icons';
 import { Card, Progress, Space, Tag, Typography } from 'antd';
-import { BarChart, LineChart } from 'echarts/charts';
-import { GridComponent, TooltipComponent } from 'echarts/components';
-import { graphic, init, use as registerECharts } from 'echarts/core';
-import type { EChartsCoreOption } from 'echarts/core';
-import { CanvasRenderer } from 'echarts/renderers';
+import {
+  createChart,
+  defaultBarOption,
+  defaultLineOption,
+  graphic,
+  type EChartsCoreOption,
+} from '@central-platform/charts';
 import { useEffect, useRef } from 'react';
 
-registerECharts([LineChart, BarChart, GridComponent, TooltipComponent, CanvasRenderer]);
-
 const salesOption: EChartsCoreOption = {
+  ...defaultLineOption(),
   color: ['#e97852'],
   tooltip: { trigger: 'axis' },
   grid: { left: 18, right: 18, top: 34, bottom: 16, containLabel: true },
@@ -49,6 +50,7 @@ const salesOption: EChartsCoreOption = {
 };
 
 const categoryOption: EChartsCoreOption = {
+  ...defaultBarOption(),
   color: ['#244d3c'],
   tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
   grid: { left: 18, right: 18, top: 34, bottom: 16, containLabel: true },
@@ -84,16 +86,8 @@ const Chart = ({ option }: ChartProps) => {
 
   useEffect(() => {
     if (!containerRef.current) return undefined;
-
-    const chart = init(containerRef.current);
-    chart.setOption(option);
-    const observer = new ResizeObserver(() => chart.resize());
-    observer.observe(containerRef.current);
-
-    return () => {
-      observer.disconnect();
-      chart.dispose();
-    };
+    const controller = createChart(containerRef.current, option);
+    return controller.dispose;
   }, [option]);
 
   return <div ref={containerRef} className="dashboard-chart" />;

@@ -5,16 +5,11 @@ import {
   RollbackOutlined,
 } from '@ant-design/icons';
 import { Card, Tag, Timeline, Typography } from 'antd';
-import { BarChart, PieChart } from 'echarts/charts';
-import { GridComponent, LegendComponent, TooltipComponent } from 'echarts/components';
-import { init, use as registerECharts } from 'echarts/core';
-import type { EChartsCoreOption } from 'echarts/core';
-import { CanvasRenderer } from 'echarts/renderers';
+import { createChart, defaultBarOption, defaultPieOption, type EChartsCoreOption } from '@central-platform/charts';
 import { useEffect, useRef } from 'react';
 
-registerECharts([BarChart, PieChart, GridComponent, LegendComponent, TooltipComponent, CanvasRenderer]);
-
 const topProductsOption: EChartsCoreOption = {
+  ...defaultBarOption(),
   color: ['#d68c45'],
   tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
   grid: { left: 16, right: 28, top: 12, bottom: 8, containLabel: true },
@@ -42,6 +37,7 @@ const topProductsOption: EChartsCoreOption = {
 };
 
 const statusOption: EChartsCoreOption = {
+  ...defaultPieOption(),
   color: ['#2f7085', '#e4a853', '#c96852', '#9ba8b3'],
   tooltip: { trigger: 'item' },
   legend: { bottom: 4, icon: 'circle', textStyle: { color: '#687582' } },
@@ -66,21 +62,15 @@ interface ChartProps {
 }
 
 const Chart = ({ option }: ChartProps) => {
-  const chartRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!chartRef.current) return undefined;
-    const chart = init(chartRef.current);
-    chart.setOption(option);
-    const observer = new ResizeObserver(() => chart.resize());
-    observer.observe(chartRef.current);
-    return () => {
-      observer.disconnect();
-      chart.dispose();
-    };
+    if (!containerRef.current) return undefined;
+    const controller = createChart(containerRef.current, option);
+    return controller.dispose;
   }, [option]);
 
-  return <div ref={chartRef} className="dashboard-chart" />;
+  return <div ref={containerRef} className="dashboard-chart" />;
 };
 
 const metrics = [

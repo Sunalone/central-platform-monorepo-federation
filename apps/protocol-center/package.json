@@ -10,8 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@central-platform/charts": "workspace:*",
     "@central-platform/ui": "workspace:*",
-    "echarts": "^6.1.0",
     "pdfjs-dist": "^6.2.108"
   }
 }
