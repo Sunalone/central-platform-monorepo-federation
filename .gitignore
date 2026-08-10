@@ -12,6 +12,7 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+**/storybook-static/
 *.local
 @mf-types
 
@@ -26,3 +27,7 @@ dist-ssr
 *.sln
 *.sw?
 **/.mf/
+
+# TypeScript declarations emitted when app composite builds include the workspace UI source.
+packages/ui/src/index.d.ts
+packages/ui/src/components/**/index.d.ts

@@ -1,0 +1,139 @@
+.platform-button.platform-button-red,
+.platform-button.platform-button-blue,
+.platform-button.platform-button-green,
+.platform-button.platform-button-yellow,
+.platform-button.platform-button-grey {
+  color: #fff;
+  border-color: transparent;
+}
+
+.platform-button.platform-button-red { background: #F56C6C; }
+.platform-button.platform-button-blue { background: #409EFF; }
+.platform-button.platform-button-green { background: #67C23A; }
+.platform-button.platform-button-yellow { background: #E6A23C; }
+.platform-button.platform-button-grey { background: #909399; }
+
+.platform-button.platform-button-red.ant-btn-link,
+.platform-button.platform-button-red.ant-btn-text,
+.platform-button.platform-button-red.ant-btn-variant-link,
+.platform-button.platform-button-red.ant-btn-variant-text {
+  color: #F56C6C;
+  background: transparent;
+  border-color: transparent;
+}
+
+.platform-button.platform-button-blue.ant-btn-link,
+.platform-button.platform-button-blue.ant-btn-text,
+.platform-button.platform-button-blue.ant-btn-variant-link,
+.platform-button.platform-button-blue.ant-btn-variant-text {
+  color: #409EFF;
+  background: transparent;
+  border-color: transparent;
+}
+
+.platform-button.platform-button-green.ant-btn-link,
+.platform-button.platform-button-green.ant-btn-text,
+.platform-button.platform-button-green.ant-btn-variant-link,
+.platform-button.platform-button-green.ant-btn-variant-text {
+  color: #67C23A;
+  background: transparent;
+  border-color: transparent;
+}
+
+.platform-button.platform-button-yellow.ant-btn-link,
+.platform-button.platform-button-yellow.ant-btn-text,
+.platform-button.platform-button-yellow.ant-btn-variant-link,
+.platform-button.platform-button-yellow.ant-btn-variant-text {
+  color: #E6A23C;
+  background: transparent;
+  border-color: transparent;
+}
+
+.platform-button.platform-button-grey.ant-btn-link,
+.platform-button.platform-button-grey.ant-btn-text,
+.platform-button.platform-button-grey.ant-btn-variant-link,
+.platform-button.platform-button-grey.ant-btn-variant-text {
+  color: #909399;
+  background: transparent;
+  border-color: transparent;
+}
+
+.platform-button.platform-button-red:hover {
+  color: #fff;
+  background: #F78A8A;
+  border-color: #F78A8A;
+}
+
+.platform-button.platform-button-blue:hover {
+  color: #fff;
+  background: #66B1FF;
+  border-color: #66B1FF;
+}
+
+.platform-button.platform-button-green:hover {
+  color: #fff;
+  background: #85CE61;
+  border-color: #85CE61;
+}
+
+.platform-button.platform-button-yellow:hover {
+  color: #fff;
+  background: #EEBE77;
+  border-color: #EEBE77;
+}
+
+.platform-button.platform-button-grey:hover {
+  color: #fff;
+  background: #A6A8AD;
+  border-color: #A6A8AD;
+}
+
+.platform-button.platform-button-red.ant-btn-link:hover,
+.platform-button.platform-button-red.ant-btn-text:hover,
+.platform-button.platform-button-red.ant-btn-variant-link:hover,
+.platform-button.platform-button-red.ant-btn-variant-text:hover {
+  color: #F78A8A;
+  background: transparent;
+}
+
+.platform-button.platform-button-blue.ant-btn-link:hover,
+.platform-button.platform-button-blue.ant-btn-text:hover,
+.platform-button.platform-button-blue.ant-btn-variant-link:hover,
+.platform-button.platform-button-blue.ant-btn-variant-text:hover {
+  color: #66B1FF;
+  background: transparent;
+}
+
+.platform-button.platform-button-green.ant-btn-link:hover,
+.platform-button.platform-button-green.ant-btn-text:hover,
+.platform-button.platform-button-green.ant-btn-variant-link:hover,
+.platform-button.platform-button-green.ant-btn-variant-text:hover {
+  color: #85CE61;
+  background: transparent;
+}
+
+.platform-button.platform-button-yellow.ant-btn-link:hover,
+.platform-button.platform-button-yellow.ant-btn-text:hover,
+.platform-button.platform-button-yellow.ant-btn-variant-link:hover,
+.platform-button.platform-button-yellow.ant-btn-variant-text:hover {
+  color: #EEBE77;
+  background: transparent;
+}
+
+.platform-button.platform-button-grey.ant-btn-link:hover,
+.platform-button.platform-button-grey.ant-btn-text:hover,
+.platform-button.platform-button-grey.ant-btn-variant-link:hover,
+.platform-button.platform-button-grey.ant-btn-variant-text:hover {
+  color: #A6A8AD;
+  background: transparent;
+}
+
+.platform-button.platform-button-red:disabled,
+.platform-button.platform-button-blue:disabled,
+.platform-button.platform-button-green:disabled,
+.platform-button.platform-button-yellow:disabled,
+.platform-button.platform-button-grey:disabled {
+  color: rgba(255, 255, 255, 0.72);
+  border-color: transparent;
+  filter: none;
+}

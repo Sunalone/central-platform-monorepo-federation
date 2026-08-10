@@ -1,5 +1,6 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import { Avatar, Button, Space, Tag, Typography } from 'antd';
+import { Space, Typography } from 'antd';
+import { Button } from '@central-platform/ui';
 import type { PageKey } from '../../types/navigation';
 import { PAGE_META } from '../../types/navigation';
 

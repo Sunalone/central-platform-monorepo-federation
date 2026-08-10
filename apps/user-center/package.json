@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@central-platform/ui": "workspace:*",
     "@formily/antd-v5": "^1.2.4",
     "@formily/core": "^2.3.7",
     "@formily/json-schema": "^2.3.7",

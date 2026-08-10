@@ -1,6 +1,5 @@
 import { EyeOutlined, ReloadOutlined, SearchOutlined } from '@ant-design/icons';
 import {
-  Button,
   Card,
   Form,
   Input,
@@ -11,6 +10,7 @@ import {
   Tag,
   Typography,
 } from 'antd';
+import { Button } from '@central-platform/ui';
 import type { ColumnsType } from 'antd/es/table';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';

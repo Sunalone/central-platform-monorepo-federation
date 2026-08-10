@@ -4,7 +4,8 @@ import {
   FilePdfOutlined,
   SafetyCertificateOutlined,
 } from '@ant-design/icons';
-import { Button, Card, Descriptions, Space, Steps, Tag, Typography } from 'antd';
+import { Card, Descriptions, Space, Steps, Tag, Typography } from 'antd';
+import { Button } from '@central-platform/ui';
 
 const pdfUrl = new URL('/product-agreement-demo.pdf', import.meta.url).href;
 

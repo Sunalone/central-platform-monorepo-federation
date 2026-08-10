@@ -1,4 +1,5 @@
-import { Button, Space, Tag } from 'antd';
+import { Space, Tag } from 'antd';
+import { Button } from '@central-platform/ui';
 import type { ColumnsType } from 'antd/es/table';
 import DataTablePage from '../../components/DataTablePage';
 import type {

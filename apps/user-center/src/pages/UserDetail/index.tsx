@@ -1,5 +1,6 @@
 import { ArrowLeftOutlined, EditOutlined, SaveOutlined, UndoOutlined } from '@ant-design/icons';
-import { App as AntdApp, Button, Card, Empty, Space, Tag, Typography } from 'antd';
+import { App as AntdApp, Card, Empty, Space, Tag, Typography } from 'antd';
+import { Button } from '@central-platform/ui';
 import { createForm } from '@formily/core';
 import { Form as FormilyForm, DatePicker, FormGrid, FormItem, Input, Select } from '@formily/antd-v5';
 import { createSchemaField, FormProvider } from '@formily/react';

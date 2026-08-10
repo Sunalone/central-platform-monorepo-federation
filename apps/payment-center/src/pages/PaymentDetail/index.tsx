@@ -3,7 +3,8 @@ import {
   CheckCircleOutlined,
   DollarOutlined,
 } from '@ant-design/icons';
-import { Button, Card, Descriptions, Empty, Space, Tag, Typography } from 'antd';
+import { Card, Descriptions, Empty, Space, Tag, Typography } from 'antd';
+import { Button } from '@central-platform/ui';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import PaymentFlowGraph from '../../components/PaymentFlowGraph';

@@ -1,5 +1,6 @@
 import { FilePdfOutlined } from '@ant-design/icons';
-import { Alert, Modal, Spin } from 'antd';
+import { Alert, Spin } from 'antd';
+import { Modal } from '@central-platform/ui';
 import { useEffect, useRef, useState } from 'react';
 import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist';
 import type { PDFDocumentProxy } from 'pdfjs-dist';
@@ -103,11 +104,10 @@ const PdfPreviewModal = ({ open, title, fileUrl, onClose }: PdfPreviewModalProps
   return (
     <Modal
       className="pdf-preview-modal"
+      size="large"
       open={open}
       onCancel={handleClose}
       footer={null}
-      width={980}
-      destroyOnHidden
       getContainer={false}
       title={
         <span className="preview-title">

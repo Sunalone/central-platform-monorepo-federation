@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "allowImportingTsExtensions": false,
+    "ignoreDeprecations": "6.0"
+  },
+  "include": [
+    "src",
+    ".storybook"
+  ]
+}

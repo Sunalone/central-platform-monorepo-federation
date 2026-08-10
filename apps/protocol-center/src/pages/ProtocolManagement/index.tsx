@@ -6,7 +6,6 @@ import {
   SearchOutlined,
 } from '@ant-design/icons';
 import {
-  Button,
   Card,
   App,
   Form,
@@ -19,6 +18,7 @@ import {
   Typography,
   Upload,
 } from 'antd';
+import { Button } from '@central-platform/ui';
 import type { ColumnsType } from 'antd/es/table';
 import type { UploadProps } from 'antd';
 import { useEffect, useRef, useState } from 'react';
