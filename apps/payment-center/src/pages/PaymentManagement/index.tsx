@@ -139,7 +139,6 @@ const PaymentManagement = () => {
       <Card className="table-card" bordered={false}>
         <div className="table-toolbar">
           <div><strong>支付订单</strong><span>共 {filteredRecords.length} 笔</span></div>
-          <Tag color="cyan">本地演示数据</Tag>
         </div>
         <Table<PaymentRecord>
           rowKey="key"

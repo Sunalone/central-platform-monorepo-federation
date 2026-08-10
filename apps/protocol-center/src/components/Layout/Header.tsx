@@ -28,14 +28,7 @@ const Header = ({ collapsed, pageKey, onToggle }: HeaderProps) => {
         </div>
       </Space>
 
-      <Space size={12}>
-        <Tag className="environment-tag">本地演示</Tag>
-        <Avatar className="admin-avatar">协</Avatar>
-        <div className="admin-copy">
-          <strong>协议管理员</strong>
-          <span>合规运营组</span>
-        </div>
-      </Space>
+
     </header>
   );
 };
