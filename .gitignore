@@ -12,6 +12,7 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+vercel-dist
 **/storybook-static/
 *.local
 @mf-types
@@ -36,3 +37,6 @@ dist-ssr
 packages/ui/src/index.d.ts
 packages/ui/src/components/**/index.d.ts
 packages/charts/src/index.d.ts
+
+.vercel
+.env.local
