@@ -7,7 +7,7 @@ import {
 import { Card, Descriptions, Space, Steps, Tag, Typography } from 'antd';
 import { Button } from '@central-platform/ui';
 
-const pdfUrl = new URL('/product-agreement-demo.pdf', import.meta.url).href;
+const pdfUrl = `${import.meta.env.BASE_URL}product-agreement-demo.pdf`;
 
 const Agreements = () => (
   <section className="agreement-page">

@@ -3,7 +3,8 @@ import react, { reactCompilerPreset } from '@vitejs/plugin-react'
 import babel from '@rolldown/plugin-babel'
 import { federation } from '@module-federation/vite';
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
+  base: mode === 'production' ? '/product-center/' : '/',
   plugins: [
     react(),
     babel({ presets: [reactCompilerPreset()] }),
@@ -18,4 +19,4 @@ export default defineConfig({
       bundleAllCSS: true,
     })
   ],
-})
+}))

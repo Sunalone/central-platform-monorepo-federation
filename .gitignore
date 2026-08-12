@@ -28,6 +28,10 @@ dist-ssr
 *.sw?
 **/.mf/
 
+# Jenkins build/deploy temporary files.
+.jenkins-build-metadata
+.jenkins-deploy/
+
 # TypeScript declarations emitted when app composite builds include the workspace UI source.
 packages/ui/src/index.d.ts
 packages/ui/src/components/**/index.d.ts

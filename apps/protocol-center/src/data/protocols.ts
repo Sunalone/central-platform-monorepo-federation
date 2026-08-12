@@ -60,7 +60,7 @@ export const protocolRecords: ProtocolRecord[] = [
 const protocolCenterOrigin = new URL(import.meta.url).origin;
 
 export const getProtocolFileUrl = (fileName: string) =>
-  `${protocolCenterOrigin}/protocols/${encodeURIComponent(fileName)}`;
+  `${protocolCenterOrigin}${import.meta.env.BASE_URL}protocols/${encodeURIComponent(fileName)}`;
 
 export const getProtocolRecordUrl = (record: ProtocolRecord) =>
   record.fileUrl ?? getProtocolFileUrl(record.fileName);
