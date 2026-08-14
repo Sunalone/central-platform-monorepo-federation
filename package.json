@@ -15,8 +15,10 @@
     "build-storybook": "pnpm --filter @central-platform/ui build-storybook"
   },
   "dependencies": {
+    "@central-platform/charts": "workspace:*",
     "@ant-design/icons": "6.3.2",
     "antd": "6.5.0",
+    "antd-mobile": "5.42.3",
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "react-router-dom": "7.18.1"
