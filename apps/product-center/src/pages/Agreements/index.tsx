@@ -4,13 +4,20 @@ import {
   FilePdfOutlined,
   SafetyCertificateOutlined,
 } from '@ant-design/icons';
-import { Card, Descriptions, Space, Steps, Tag, Typography } from 'antd';
+import { Card, Descriptions, Space, Spin, Steps, Tag, Typography } from 'antd';
 import { Button } from '@central-platform/ui';
+import { lazy, Suspense, useState } from 'react';
 
-const pdfUrl = `${import.meta.env.BASE_URL}product-agreement-demo.pdf`;
+const productCenterOrigin = new URL(import.meta.url).origin;
+const pdfUrl = `${productCenterOrigin}${import.meta.env.BASE_URL}product-agreement-demo.pdf`;
+const loadPdfPreviewModal = () => import('../../components/PdfPreviewModal');
+const PdfPreviewModal = lazy(loadPdfPreviewModal);
 
-const Agreements = () => (
-  <section className="agreement-page">
+const Agreements = () => {
+  const [previewOpen, setPreviewOpen] = useState(false);
+
+  return (
+    <section className="agreement-page">
     <div className="page-intro agreement-intro">
       <div>
         <Typography.Title level={2}>产品协议</Typography.Title>
@@ -74,7 +81,13 @@ const Agreements = () => (
         }
         extra={
           <Space>
-            <Button href={pdfUrl} target="_blank">新窗口打开</Button>
+            <Button
+              htmlType="button"
+              onMouseEnter={() => void loadPdfPreviewModal()}
+              onClick={() => setPreviewOpen(true)}
+            >
+              弹窗预览
+            </Button>
             <Button type="primary" icon={<DownloadOutlined />} href={pdfUrl} download>
               下载
             </Button>
@@ -85,10 +98,26 @@ const Agreements = () => (
           <span>PDF · 1 页 · 生成于 2026-08-01 16:20</span>
           <span>文件校验通过</span>
         </div>
-        <iframe className="agreement-pdf" src={pdfUrl} title="产品服务配置协议 PDF 预览" />
+        <div className="agreement-pdf-entry">
+          <FilePdfOutlined />
+          <strong>产品服务配置协议.pdf</strong>
+          <span>点击“弹窗预览”后使用 PDF.js 在当前页面查看，不会跳转离开中台。</span>
+        </div>
       </Card>
     </div>
-  </section>
-);
+
+      {previewOpen && (
+        <Suspense fallback={<div className="agreement-preview-loading"><Spin tip="正在打开协议..." /></div>}>
+          <PdfPreviewModal
+            open={previewOpen}
+            title="产品服务配置协议.pdf"
+            fileUrl={pdfUrl}
+            onClose={() => setPreviewOpen(false)}
+          />
+        </Suspense>
+      )}
+    </section>
+  );
+};
 
 export default Agreements;

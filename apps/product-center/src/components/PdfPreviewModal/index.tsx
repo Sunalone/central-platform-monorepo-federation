@@ -1,12 +1,12 @@
 import { FilePdfOutlined } from '@ant-design/icons';
-import { Alert, Spin } from 'antd';
 import {
   destroyPdfDocument,
   loadPdfDocument,
   renderPdfPage,
   type PDFDocumentProxy,
 } from '@central-platform/tools';
-import { Modal } from '@central-platform/ui';
+import { Button, Modal } from '@central-platform/ui';
+import { Alert, Spin } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 
 interface PdfPageProps {
@@ -36,7 +36,7 @@ const PdfPage = ({ document, pageNumber }: PdfPageProps) => {
   }, [document, pageNumber]);
 
   return (
-    <div className="pdf-page">
+    <div className="product-pdf-page">
       <canvas ref={canvasRef} hidden={renderError} aria-label={`PDF 第 ${pageNumber} 页`} />
       {renderError && <Alert type="error" showIcon message={`第 ${pageNumber} 页渲染失败`} />}
       <span>第 {pageNumber} 页</span>
@@ -47,16 +47,17 @@ const PdfPage = ({ document, pageNumber }: PdfPageProps) => {
 interface PdfPreviewModalProps {
   open: boolean;
   title: string;
-  fileUrl: string | null;
+  fileUrl: string;
   onClose: () => void;
 }
 
 const PdfPreviewModal = ({ open, title, fileUrl, onClose }: PdfPreviewModalProps) => {
   const [document, setDocument] = useState<PDFDocumentProxy | null>(null);
   const [error, setError] = useState('');
+  const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
-    if (!open || !fileUrl) return undefined;
+    if (!open) return undefined;
 
     let active = true;
     const loadingTask = loadPdfDocument(fileUrl, {
@@ -72,43 +73,42 @@ const PdfPreviewModal = ({ open, title, fileUrl, onClose }: PdfPreviewModalProps
       })
       .catch((loadError: unknown) => {
         console.error('PDF 文件加载失败', { fileUrl, loadError });
-        if (active) setError('PDF 文件加载失败，请稍后重试。');
+        if (active) setError('PDF 文件加载失败，请检查网络后重试。');
       });
 
     return () => {
       active = false;
       void destroyPdfDocument(loadingTask);
     };
-  }, [fileUrl, open]);
+  }, [fileUrl, open, reloadKey]);
 
-  const handleClose = () => {
+  const retry = () => {
     setDocument(null);
     setError('');
-    onClose();
+    setReloadKey((current) => current + 1);
   };
 
   return (
     <Modal
-      className="pdf-preview-modal"
+      className="product-pdf-preview-modal"
       size="large"
       open={open}
-      onCancel={handleClose}
+      onCancel={onClose}
       footer={null}
       getContainer={false}
-      title={
-        <span className="preview-title">
-          <FilePdfOutlined />
-          {title}
-        </span>
-      }
+      title={<span className="product-pdf-preview-title"><FilePdfOutlined />{title}</span>}
     >
-      <div className="pdf-viewer">
-        {error && <Alert type="error" message={error} showIcon />}
+      <div className="product-pdf-viewer">
+        {error && (
+          <div className="product-pdf-error">
+            <Alert type="error" message={error} showIcon />
+            <Button onClick={retry}>重新加载</Button>
+          </div>
+        )}
         {!error && !document && <Spin size="large" tip="正在解析 PDF..." />}
-        {document &&
-          Array.from({ length: document.numPages }, (_, index) => (
-            <PdfPage key={index + 1} document={document} pageNumber={index + 1} />
-          ))}
+        {document && Array.from({ length: document.numPages }, (_, index) => (
+          <PdfPage key={index + 1} document={document} pageNumber={index + 1} />
+        ))}
       </div>
     </Modal>
   );
