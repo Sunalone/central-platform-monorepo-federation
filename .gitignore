@@ -28,6 +28,7 @@ vercel-dist
 *.sln
 *.sw?
 **/.mf/
+tmp
 
 # Jenkins build/deploy temporary files.
 .jenkins-build-metadata

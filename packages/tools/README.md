@@ -13,6 +13,18 @@ await renderPdfPage(document, canvas, 1, { scale: 1.35, signal });
 await loadingTask.destroy();
 ```
 
+## Web Console
+
+The web console helper is framework-agnostic and loads Eruda only when debugging is enabled:
+
+```ts
+import { initWebConsole } from '@central-platform/tools';
+
+void initWebConsole();
+```
+
+Append `?debug=1` to enable the console for the current browser. The setting is persisted in `localStorage`; append `?debug=0` to disable it and clear the setting.
+
 ## Signature
 
 The signature API is framework-agnostic. Create a controller after the canvas is mounted, then bind its methods to the framework's mouse events:
