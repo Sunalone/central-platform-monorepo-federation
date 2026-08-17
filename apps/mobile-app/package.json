@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@central-platform/tools": "workspace:*",
-    "eruda": "3.4.3"
+    "@central-platform/tools": "workspace:*"
   }
 }

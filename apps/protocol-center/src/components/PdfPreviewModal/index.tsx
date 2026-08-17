@@ -16,7 +16,6 @@ interface PdfPageProps {
 
 const PdfPage = ({ document, pageNumber }: PdfPageProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [renderError, setRenderError] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -26,19 +25,14 @@ const PdfPage = ({ document, pageNumber }: PdfPageProps) => {
     void renderPdfPage(document, canvas, pageNumber, {
       scale: 1.35,
       signal: controller.signal,
-    }).catch((error: unknown) => {
-      if (controller.signal.aborted) return;
-      console.error(`PDF 第 ${pageNumber} 页渲染失败`, error);
-      setRenderError(true);
-    });
+    }).catch(() => undefined);
 
     return () => controller.abort();
   }, [document, pageNumber]);
 
   return (
     <div className="pdf-page">
-      <canvas ref={canvasRef} hidden={renderError} aria-label={`PDF 第 ${pageNumber} 页`} />
-      {renderError && <Alert type="error" showIcon message={`第 ${pageNumber} 页渲染失败`} />}
+      <canvas ref={canvasRef} aria-label={`PDF 第 ${pageNumber} 页`} />
       <span>第 {pageNumber} 页</span>
     </div>
   );
@@ -59,19 +53,13 @@ const PdfPreviewModal = ({ open, title, fileUrl, onClose }: PdfPreviewModalProps
     if (!open || !fileUrl) return undefined;
 
     let active = true;
-    const loadingTask = loadPdfDocument(fileUrl, {
-      moduleUrl: import.meta.url,
-      withCredentials: true,
-      disableRange: true,
-      disableStream: true,
-    });
+    const loadingTask = loadPdfDocument(fileUrl, { moduleUrl: import.meta.url });
 
     void loadingTask.promise
       .then((loadedDocument) => {
         if (active) setDocument(loadedDocument);
       })
-      .catch((loadError: unknown) => {
-        console.error('PDF 文件加载失败', { fileUrl, loadError });
+      .catch(() => {
         if (active) setError('PDF 文件加载失败，请稍后重试。');
       });
 

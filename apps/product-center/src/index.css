@@ -709,88 +709,13 @@ body {
   color: #39815f;
 }
 
-.product-shell .agreement-pdf-entry {
-  min-height: 420px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  gap: 10px;
+.product-shell .agreement-pdf {
+  width: 100%;
+  height: 720px;
+  display: block;
   border: 1px solid #dfe5e1;
   border-radius: 10px;
-  background: linear-gradient(145deg, #f8faf8, #eef3f0);
-  color: var(--product-muted);
-  text-align: center;
-}
-
-.product-shell .agreement-pdf-entry > svg {
-  color: #cf5940;
-  font-size: 52px;
-}
-
-.product-shell .agreement-pdf-entry strong {
-  color: #34473f;
-}
-
-.product-shell .agreement-pdf-entry span {
-  max-width: 390px;
-  font-size: 12px;
-}
-
-.product-shell .agreement-preview-loading {
-  position: fixed;
-  z-index: 1100;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  background: rgba(22, 39, 34, 0.36);
-}
-
-.product-shell .product-pdf-preview-title {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.product-shell .product-pdf-viewer {
-  min-height: 420px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 16px;
-  padding: 18px;
-  background: #eef2ef;
-}
-
-.product-shell .product-pdf-page {
-  width: fit-content;
-  max-width: 100%;
-  padding: 10px;
-  background: #fff;
-  box-shadow: 0 8px 24px rgba(29, 52, 44, 0.1);
-  text-align: center;
-}
-
-.product-shell .product-pdf-page canvas {
-  display: block;
-  max-width: 100%;
-  height: auto !important;
-}
-
-.product-shell .product-pdf-page > span {
-  display: block;
-  padding-top: 8px;
-  color: var(--product-muted);
-  font-size: 11px;
-}
-
-.product-shell .product-pdf-error {
-  display: flex;
-  min-height: 360px;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  gap: 16px;
+  background: #eef1ee;
 }
 
 @media (max-width: 1180px) {
@@ -892,7 +817,7 @@ body {
     gap: 3px;
   }
 
-  .product-shell .agreement-pdf-entry {
-    min-height: 320px;
+  .product-shell .agreement-pdf {
+    height: 520px;
   }
 }

@@ -17,16 +17,6 @@ import type { ProductProtocol } from '../../types/business';
 const statusFilters = ['全部', '在售', '审核中', '已下架'] as const;
 const PdfPreviewPopup = lazy(() => import('../../components/PdfPreviewPopup'));
 
-const PdfPreviewLoading = () => (
-  <div className="mobile-pdf-opening" role="status" aria-live="polite">
-    <div>
-      <span className="mobile-pdf-loading" />
-      <strong>正在打开协议</strong>
-      <p>首次加载 PDF 预览器可能需要几秒</p>
-    </div>
-  </div>
-);
-
 const ProductPage = () => {
   const { input, query, setInput, submit, reset } = useTextQuery();
   const [status, setStatus] = useState<(typeof statusFilters)[number]>('全部');
@@ -125,12 +115,7 @@ const ProductPage = () => {
                               <Button
                                 fill="none"
                                 size="mini"
-                                type="button"
-                                onClick={(event) => {
-                                  event.preventDefault();
-                                  event.stopPropagation();
-                                  setPreviewProtocol(protocol);
-                                }}
+                                onClick={() => setPreviewProtocol(protocol)}
                               >
                                 查看
                               </Button>
@@ -158,9 +143,8 @@ const ProductPage = () => {
       </section>
 
       {previewProtocol && (
-        <Suspense fallback={<PdfPreviewLoading />}>
+        <Suspense fallback={null}>
           <PdfPreviewPopup
-            key={previewProtocol.id}
             protocol={previewProtocol}
             onClose={() => setPreviewProtocol(null)}
           />

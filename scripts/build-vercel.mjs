@@ -13,7 +13,6 @@ const apps = [
   { name: 'protocol-center', filter: '@central-platform/protocol-center' },
   { name: 'payment-center', filter: '@central-platform/payment-center' },
   { name: 'user-center', filter: '@central-platform/user-center' },
-  { name: 'mobile-app', filter: '@central-platform/mobile-app' },
   { name: 'shell-app', filter: 'shell-app' },
 ];
 

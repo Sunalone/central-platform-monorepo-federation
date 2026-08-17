@@ -51,24 +51,6 @@
       ]
     },
     {
-      "source": "/mobile-app/assets/:asset*",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/mobile-app/protocols/:file*",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=86400, must-revalidate"
-        }
-      ]
-    },
-    {
       "source": "/assets/:asset*",
       "headers": [
         {
@@ -94,22 +76,6 @@
     {
       "source": "/user/:path*",
       "destination": "/index.html"
-    },
-    {
-      "source": "/mobile-app",
-      "destination": "/mobile-app/index.html"
-    },
-    {
-      "source": "/mobile-app/products",
-      "destination": "/mobile-app/index.html"
-    },
-    {
-      "source": "/mobile-app/payments",
-      "destination": "/mobile-app/index.html"
-    },
-    {
-      "source": "/mobile-app/users",
-      "destination": "/mobile-app/index.html"
     }
   ]
 }
