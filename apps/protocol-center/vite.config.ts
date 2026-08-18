@@ -1,5 +1,6 @@
 import { federation } from "@module-federation/vite";
 import babel from "@rolldown/plugin-babel";
+import { emitPdfCMapAssets } from "@central-platform/tools/pdf/vite";
 import react, { reactCompilerPreset } from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
@@ -8,6 +9,7 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     babel({ presets: [reactCompilerPreset()] }),
+    emitPdfCMapAssets(),
     federation({
       name: "protocol-center",
       filename: "remoteProtocolCenter.js",

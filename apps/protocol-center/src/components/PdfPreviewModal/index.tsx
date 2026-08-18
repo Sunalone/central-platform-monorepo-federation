@@ -1,38 +1,55 @@
 import { FilePdfOutlined } from '@ant-design/icons';
 import { Alert, Spin } from 'antd';
 import {
-  destroyPdfDocument,
-  loadPdfDocument,
-  renderPdfPage,
-  type PDFDocumentProxy,
+  initPdf,
+  renderPdf,
 } from '@central-platform/tools';
 import { Modal } from '@central-platform/ui';
 import { useEffect, useRef, useState } from 'react';
 
+type PdfDocument = Awaited<ReturnType<typeof initPdf>>;
+
 interface PdfPageProps {
-  document: PDFDocumentProxy;
+  document: PdfDocument;
   pageNumber: number;
 }
 
 const PdfPage = ({ document, pageNumber }: PdfPageProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const renderedPageRef = useRef<{ document: PdfDocument; pageNumber: number } | null>(null);
+  const [renderError, setRenderError] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return undefined;
 
-    const controller = new AbortController();
-    void renderPdfPage(document, canvas, pageNumber, {
-      scale: 1.35,
-      signal: controller.signal,
-    }).catch(() => undefined);
+    const renderedPage = renderedPageRef.current;
+    if (renderedPage?.document === document && renderedPage.pageNumber === pageNumber) {
+      return undefined;
+    }
 
-    return () => controller.abort();
+    renderedPageRef.current = { document, pageNumber };
+    let active = true;
+    setRenderError(false);
+
+    void renderPdf(document, canvas, {
+      pageNum: pageNumber,
+      scale: 1.35,
+    }).catch((renderError: unknown) => {
+      if (!active) return;
+      console.error(`PDF 第 ${pageNumber} 页渲染失败`, renderError);
+      setRenderError(true);
+    });
+
+    return () => {
+      active = false;
+    };
   }, [document, pageNumber]);
 
   return (
     <div className="pdf-page">
-      <canvas ref={canvasRef} aria-label={`PDF 第 ${pageNumber} 页`} />
+      <canvas ref={canvasRef} hidden={renderError} aria-label={`PDF 第 ${pageNumber} 页`} />
+      {renderError && <Alert type="error" message={`PDF 第 ${pageNumber} 页渲染失败`} showIcon />}
       <span>第 {pageNumber} 页</span>
     </div>
   );
@@ -46,26 +63,30 @@ interface PdfPreviewModalProps {
 }
 
 const PdfPreviewModal = ({ open, title, fileUrl, onClose }: PdfPreviewModalProps) => {
-  const [document, setDocument] = useState<PDFDocumentProxy | null>(null);
+  const [document, setDocument] = useState<PdfDocument | null>(null);
   const [error, setError] = useState('');
 
   useEffect(() => {
     if (!open || !fileUrl) return undefined;
 
     let active = true;
-    const loadingTask = loadPdfDocument(fileUrl, { moduleUrl: import.meta.url });
+    let loadedDocument: PdfDocument | null = null;
 
-    void loadingTask.promise
-      .then((loadedDocument) => {
-        if (active) setDocument(loadedDocument);
+    void initPdf(fileUrl)
+      .then((nextDocument) => {
+        loadedDocument = nextDocument;
+        if (active) setDocument(nextDocument);
+        else void nextDocument.cleanup().catch(() => undefined);
       })
-      .catch(() => {
+      .catch((loadError: unknown) => {
+        if (!active) return;
+        console.error('PDF 文件加载失败', { fileUrl, loadError });
         if (active) setError('PDF 文件加载失败，请稍后重试。');
       });
 
     return () => {
       active = false;
-      void destroyPdfDocument(loadingTask);
+      if (loadedDocument) void loadedDocument.cleanup().catch(() => undefined);
     };
   }, [fileUrl, open]);
 
