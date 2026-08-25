@@ -76,6 +76,14 @@
     {
       "source": "/user/:path*",
       "destination": "/index.html"
+    },
+    {
+      "source": "/mobile-app",
+      "destination": "/mobile-app/index.html"
+    },
+    {
+      "source": "/mobile-app/:path*",
+      "destination": "/mobile-app/index.html"
     }
   ]
 }

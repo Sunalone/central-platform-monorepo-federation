@@ -15,7 +15,10 @@ const getCanvasPoint = (canvas: HTMLCanvasElement, event: SignaturePointerEvent)
   };
 };
 
-/** Creates a framework-agnostic signature controller for a canvas element. */
+/**
+ * Creates a framework-agnostic signature controller for a canvas element.
+ * 为 Canvas 元素创建不依赖 Vue 或 React 的电子签名控制器。
+ */
 export const createSignatureCanvas = (
   canvas: HTMLCanvasElement,
   options: SignatureOptions = {},

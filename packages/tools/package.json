@@ -26,6 +26,8 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "typecheck": "tsc -p tsconfig.json --noEmit --pretty false"
   },
   "peerDependencies": {
@@ -34,6 +36,7 @@
   "devDependencies": {
     "pdfjs-dist": "6.2.108",
     "tsup": "8.3.5",
-    "typescript": "6.0.2"
+    "typescript": "6.0.2",
+    "vitest": "3.2.4"
   }
 }
