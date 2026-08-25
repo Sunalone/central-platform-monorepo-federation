@@ -1,5 +1,6 @@
 import Button from 'antd-mobile/es/components/button';
-import { lazy, Suspense, useState } from 'react';
+import Skeleton from 'antd-mobile/es/components/skeleton';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import ChartPanel from '../../components/ChartPanel';
 import EmptyResult from '../../components/EmptyResult';
 import FilterChips from '../../components/FilterChips';
@@ -17,11 +18,34 @@ import type { ProductProtocol } from '../../types/business';
 const statusFilters = ['全部', '在售', '审核中', '已下架'] as const;
 const PdfPreviewPopup = lazy(() => import('../../components/PdfPreviewPopup'));
 
+// 使用与真实产品卡片接近的结构占位，减少数据加载完成后的布局跳动。
+const ProductListSkeleton = () => (
+  <div className="record-list" role="status" aria-label="产品列表加载中">
+    {Array.from({ length: 2 }, (_, index) => (
+      <article className="record-card product-skeleton" key={index}>
+        <Skeleton.Title animated />
+        <Skeleton.Paragraph lineCount={2} animated />
+        <div className="product-skeleton__facts">
+          <Skeleton animated />
+          <Skeleton animated />
+        </div>
+      </article>
+    ))}
+  </div>
+);
+
 const ProductPage = () => {
   const { input, query, setInput, submit, reset } = useTextQuery();
   const [status, setStatus] = useState<(typeof statusFilters)[number]>('全部');
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [previewProtocol, setPreviewProtocol] = useState<ProductProtocol | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // 本地演示数据加载很快，这里用短暂延时展示骨架屏的实际效果。
+    const timer = window.setTimeout(() => setIsLoading(false), 1200);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   const filteredProducts = products.filter((product) => {
     const matchesStatus = status === '全部' || product.status === status;
@@ -69,7 +93,7 @@ const ProductPage = () => {
 
       <section className="result-section">
         <ResultHeader count={filteredProducts.length} label="产品列表" />
-        {filteredProducts.length === 0 ? <EmptyResult /> : (
+        {isLoading ? <ProductListSkeleton /> : filteredProducts.length === 0 ? <EmptyResult /> : (
           <div className="record-list">
             {filteredProducts.map((product) => {
               const expanded = expandedId === product.id;

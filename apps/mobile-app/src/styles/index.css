@@ -462,6 +462,32 @@ button {
   gap: 10px;
 }
 
+.product-skeleton {
+  min-height: 176px;
+}
+
+.product-skeleton .adm-skeleton-title {
+  --width: 52%;
+  --height: 18px;
+  --border-radius: 7px;
+}
+
+.product-skeleton .adm-skeleton-paragraph {
+  margin-top: 18px;
+}
+
+.product-skeleton__facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.product-skeleton__facts .adm-skeleton {
+  --height: 48px;
+  --border-radius: 12px;
+}
+
 .record-card {
   position: relative;
   overflow: hidden;
