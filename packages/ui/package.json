@@ -1,6 +1,6 @@
 {
   "name": "@central-platform/ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "type": "module",
   "main": "./dist/index.cjs",
@@ -25,7 +25,10 @@
     "test:watch": "vitest",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "typecheck": "tsc -p tsconfig.json --noEmit --pretty false"
+    "typecheck": "tsc -p tsconfig.json --noEmit --pretty false",
+    "changeset": "pnpm --workspace-root exec changeset",
+    "changeset:version": "pnpm --workspace-root exec changeset version",
+    "changeset:publish": "pnpm --workspace-root changeset:publish"
   },
   "peerDependencies": {
     "@ant-design/icons": ">=6.0.0",

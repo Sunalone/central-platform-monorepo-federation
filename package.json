@@ -12,11 +12,14 @@
     "format": "prettier --write .",
     "create-cli": "node packages/cli/dist/index.js",
     "storybook": "pnpm --filter @central-platform/ui storybook",
-    "build-storybook": "pnpm --filter @central-platform/ui build-storybook"
+    "build-storybook": "pnpm --filter @central-platform/ui build-storybook",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:publish": "pnpm --filter @central-platform/ui build && changeset publish"
   },
   "dependencies": {
-    "@central-platform/charts": "workspace:*",
     "@ant-design/icons": "6.3.2",
+    "@central-platform/charts": "workspace:*",
     "antd": "6.5.0",
     "antd-mobile": "5.42.3",
     "react": "19.2.7",
@@ -25,6 +28,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.29.7",
+    "@changesets/cli": "^3.0.1",
     "@eslint/js": "10.0.1",
     "@module-federation/vite": "1.16.14",
     "@rolldown/plugin-babel": "0.2.3",
