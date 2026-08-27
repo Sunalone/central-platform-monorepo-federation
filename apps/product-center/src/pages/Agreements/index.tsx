@@ -6,9 +6,10 @@ import {
 } from "@ant-design/icons";
 import { Card, Descriptions, Space, Steps, Tag, Typography } from "antd";
 import { Button } from "@central-platform/ui";
-import { useState } from "react";
-import ProtocolModal from "./ProtocolModal";
+import { lazy, Suspense, useState } from "react";
 import pdfUrl from "./product-agreement-demo.pdf?url";
+
+const ProtocolModal = lazy(() => import("./ProtocolModal"));
 
 const Agreements = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -117,7 +118,9 @@ const Agreements = () => {
         </div>
       </section>
       {isOpen && (
-        <ProtocolModal isOpen={isOpen} onCancel={() => setIsOpen(false)} pdfUrl={pdfUrl} />
+        <Suspense fallback={null}>
+          <ProtocolModal isOpen={isOpen} onCancel={() => setIsOpen(false)} pdfUrl={pdfUrl} />
+        </Suspense>
       )}
     </>
   );

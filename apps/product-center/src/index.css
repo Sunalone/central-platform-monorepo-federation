@@ -248,6 +248,13 @@ body {
   animation: page-in 0.35s ease both;
 }
 
+.product-shell .page-chunk-loading {
+  display: grid;
+  min-height: 320px;
+  place-items: center;
+  color: #7b8781;
+}
+
 @keyframes page-in {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
@@ -410,6 +417,14 @@ body {
 .product-shell .dashboard-chart {
   width: 100%;
   height: 310px;
+}
+
+.product-shell .chart-loading {
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  color: #8a9690;
+  background: #f3f6f4;
 }
 
 .product-shell .chart-legend {

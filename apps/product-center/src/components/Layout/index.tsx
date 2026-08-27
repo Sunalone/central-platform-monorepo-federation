@@ -1,13 +1,17 @@
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { Layout } from 'antd';
-import Agreements from '../../pages/Agreements';
-import Dashboard from '../../pages/Dashboard';
-import ManagementPage from '../../pages/Management';
 import type { PageKey } from '../../types/navigation';
 import Header from './Header';
 import SiderMenu from './SiderMenu';
 
 const { Sider, Content } = Layout;
+const Dashboard = lazy(() => import('../../pages/Dashboard'));
+const Agreements = lazy(() => import('../../pages/Agreements'));
+const ManagementPage = lazy(() => import('../../pages/Management'));
+
+const PageLoading = () => (
+  <div className="page-chunk-loading" role="status">页面加载中...</div>
+);
 
 const AdminLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -52,11 +56,13 @@ const AdminLayout = () => {
         />
         <Content className="product-content">
           <div className="page-stage" key={pageKey}>
-            {pageKey === 'dashboard' && <Dashboard />}
-            {pageKey === 'agreements' && <Agreements />}
-            {pageKey !== 'dashboard' && pageKey !== 'agreements' && (
-              <ManagementPage pageKey={pageKey} />
-            )}
+            <Suspense fallback={<PageLoading />}>
+              {pageKey === 'dashboard' && <Dashboard />}
+              {pageKey === 'agreements' && <Agreements />}
+              {pageKey !== 'dashboard' && pageKey !== 'agreements' && (
+                <ManagementPage pageKey={pageKey} />
+              )}
+            </Suspense>
           </div>
         </Content>
       </Layout>

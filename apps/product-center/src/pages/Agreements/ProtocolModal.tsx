@@ -2,6 +2,8 @@ import { Modal } from "@central-platform/ui";
 import { useEffect, useRef, useState } from "react";
 import { initPdf, renderPdf } from "@central-platform/tools";
 
+type PdfDocument = Awaited<ReturnType<typeof initPdf>>;
+
 type TProtocolModalProps = {
   isOpen: boolean;
   pdfUrl: string;
@@ -14,9 +16,7 @@ const ProtocolModal: React.FC<TProtocolModalProps> = (props) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [totalPage, setTotalPage] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pdfDoc, setPdfDoc] = useState<any>(null);
-  const [scale, setScale] = useState(1);
-  const [viewport, setViewport] = useState<any>();
+  const [pdfDoc, setPdfDoc] = useState<PdfDocument | null>(null);
 
   // 加载 PDF
   useEffect(() => {
@@ -32,16 +32,11 @@ const ProtocolModal: React.FC<TProtocolModalProps> = (props) => {
   // 渲染页面
   useEffect(() => {
     const renderPage = async (num: number) => {
-      const { viewport } =
-        (await renderPdf(pdfDoc, canvasRef.current, {
-          pageNum: num
-        })) ?? {};
-      if (viewport) {
-        setViewport(viewport);
-      }
+      if (!pdfDoc) return;
+      await renderPdf(pdfDoc, canvasRef.current, { pageNum: num });
     };
     renderPage(currentPage);
-  }, [isOpen, pdfDoc, currentPage, scale]);
+  }, [isOpen, pdfDoc, currentPage]);
 
   return (
     <Modal open={isOpen} onCancel={onCancel}>

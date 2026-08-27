@@ -21,8 +21,7 @@ import {
 import { Button } from '@central-platform/ui';
 import type { ColumnsType } from 'antd/es/table';
 import type { UploadProps } from 'antd';
-import { useEffect, useRef, useState } from 'react';
-import PdfPreviewModal from '../../components/PdfPreviewModal';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import {
   getProtocolRecordUrl,
   protocolRecords,
@@ -30,6 +29,7 @@ import {
 import type { ProtocolRecord } from '../../data/protocols';
 
 const PAGE_SIZE = 5;
+const PdfPreviewModal = lazy(() => import('../../components/PdfPreviewModal'));
 
 const statusColor = {
   已生效: 'green',
@@ -204,12 +204,16 @@ const ProtocolManagement = () => {
         </div>
       </Card>
 
-      <PdfPreviewModal
-        open={Boolean(previewRecord)}
-        title={previewRecord ? `${previewRecord.name} ${previewRecord.version}` : ''}
-        fileUrl={previewRecord ? getProtocolRecordUrl(previewRecord) : null}
-        onClose={() => setPreviewRecord(null)}
-      />
+      {previewRecord && (
+        <Suspense fallback={null}>
+          <PdfPreviewModal
+            open
+            title={`${previewRecord.name} ${previewRecord.version}`}
+            fileUrl={getProtocolRecordUrl(previewRecord)}
+            onClose={() => setPreviewRecord(null)}
+          />
+        </Suspense>
+      )}
     </section>
   );
 };

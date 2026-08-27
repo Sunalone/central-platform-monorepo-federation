@@ -1,12 +1,17 @@
 import { App as AntdApp } from 'antd';
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PaymentLayout from './components/Layout';
-import Dashboard from './pages/Dashboard';
-import PaymentDetail from './pages/PaymentDetail';
-import PaymentManagement from './pages/PaymentManagement';
 import type { PageKey } from './types/navigation';
 import './index.css';
+
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const PaymentDetail = lazy(() => import('./pages/PaymentDetail'));
+const PaymentManagement = lazy(() => import('./pages/PaymentManagement'));
+
+const PageLoading = () => (
+  <div className="page-chunk-loading" role="status">页面加载中...</div>
+);
 
 const RoutedPaymentApp = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -27,7 +32,7 @@ const RoutedPaymentApp = () => {
       pageKey={pageKey}
       onToggle={() => setCollapsed((value) => !value)}
     >
-      {page}
+      <Suspense fallback={<PageLoading />}>{page}</Suspense>
     </PaymentLayout>
   );
 };
