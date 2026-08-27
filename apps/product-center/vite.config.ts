@@ -17,7 +17,12 @@ export default defineConfig(({ mode }) => ({
         "./index": "./src/App.tsx",
         "./Button": "./src/components/Button/index.tsx"
       },
-      shared: ["react", "react-dom"],
+      shared: {
+        react: { singleton: true, requiredVersion: "19.2.7" },
+        "react-dom": { singleton: true, requiredVersion: "19.2.7" },
+        antd: { singleton: true, requiredVersion: "6.5.0" },
+        "@ant-design/icons": { singleton: true, requiredVersion: "6.3.2" }
+      },
       bundleAllCSS: true
     })
   ]
